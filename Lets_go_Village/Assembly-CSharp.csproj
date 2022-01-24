@@ -95,6 +95,7 @@
     <Compile Include="Assets\UnityAssets\Wizard - 2D Character\Demo\WizDemo1.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\Archer\ArrowScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\FishScript.cs" />
+    <Compile Include="Assets\Scripts\BrokenGroundScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityAssets\Bringer Of Death\License.txt" />

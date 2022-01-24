@@ -76,7 +76,7 @@ public class GolemScript : EnemyAdstract
 
         Vector3 moveVelocity = Vector3.zero;
 
-        if (toPlayerDistance < 0)
+        if (toPlayerDistance < -0.5f)
         {
             golemDirection = 1;
             moveVelocity = Vector3.left;
@@ -84,7 +84,7 @@ public class GolemScript : EnemyAdstract
             Golem.transform.rotation = new Quaternion(0, 0, 0, 0);
 
         }
-        if (0 < toPlayerDistance)
+        if (0.5f < toPlayerDistance)
         {
             golemDirection = -1;
             moveVelocity = Vector3.right;

@@ -49,7 +49,7 @@ public class UndeadScript : EnemyAdstract
 
         Vector3 moveVelocity = Vector3.zero;
 
-        if (toPlayerDistance < 0)
+        if (toPlayerDistance < -0.5f)
         {
             undeadDirection = -1;
             moveVelocity = Vector3.left;
@@ -57,7 +57,7 @@ public class UndeadScript : EnemyAdstract
             transform.localScale = new Vector3(undeadDirection, 1, 1);
 
         }
-        if (0 < toPlayerDistance)
+        if (0.5f < toPlayerDistance)
         {
             undeadDirection = 1;
             moveVelocity = Vector3.right;

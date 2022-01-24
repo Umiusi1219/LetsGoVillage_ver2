@@ -16,6 +16,7 @@ TagManager:
   - water
   - aaa
   - Slot
+  - BossEnemy
   layers:
   - Default
   - TransparentFX

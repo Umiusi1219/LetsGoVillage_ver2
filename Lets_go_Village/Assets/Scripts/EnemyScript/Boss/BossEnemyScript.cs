@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BossEnemyScript : MonoBehaviour
 {
@@ -48,12 +49,46 @@ public class BossEnemyScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (m_BossHp <= 0)
-        { 
-            StartCoroutine(NextStage());
-            if(doBrack)
+        if (SceneManager.GetActiveScene().name == "Boss_2Scene")
+        {
+            if(BrackUI != null)
             {
-                BrackUI.transform.localScale += new Vector3(0.8f, 0.8f, 0f);
+                if (BrackUI.transform.localScale.x >= 0.1f )
+                {
+                    BrackUI.transform.localScale -= new Vector3(1f, 1f, 1f);
+                }
+                else 
+                {
+                    Destroy(BrackUI);
+                }
+            }
+        }
+
+        if (m_BossHp <= 0)
+        {
+            if (SceneManager.GetActiveScene().name == "Boss_1Scene")
+            {
+                StartCoroutine(NextStage());
+                if (doBrack)
+                {
+                    BrackUI.transform.localScale += new Vector3(0.8f, 0.8f, 0f);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Boss_2Scene")
+            {
+                if ( transform.position.y >= startPos.y)
+                {
+                    transform.position -= new Vector3(0, 0.5f, 0);
+                }
+                else if(transform.position.x <= 200)
+                {
+                    transform.position += new Vector3(0.5f,0, 0);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         else

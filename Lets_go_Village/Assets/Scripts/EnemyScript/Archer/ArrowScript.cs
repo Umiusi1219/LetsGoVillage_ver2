@@ -43,10 +43,11 @@ public class ArrowScript : EnemyAdstract
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Player" || collision.tag == "Playerbullet" 
+        if(collision.tag == "Player" || collision.tag == "PlayerBullet" 
             || collision.tag == "Chest" || collision.tag == "Map" 
-            || collision.tag == "AlphaMap")
+            || collision.tag == "AlphaMap" || collision.tag == "Slot")
         {
+            Debug.Log(collision.name);
             Destroy(gameObject);
         }
 

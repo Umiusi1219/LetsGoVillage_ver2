@@ -25,35 +25,39 @@ public class BossAttackObjScript : EnemyAdstract
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(boss.GetComponent<BossEnemyScript>().m_BossHp > 0)
+        if (boss != null)
         {
-            if (moveDistance.x > 0)
+            if (boss.GetComponent<BossEnemyScript>().m_BossHp > 0)
             {
-                if (m_DoAttack && transform.position.x <= EndPos.x)
+                if (moveDistance.x > 0)
                 {
-                    gameObject.transform.position += new Vector3((moveDistance.x)
-                        / (60 * moveSecond), 0, 0);
+                    if (m_DoAttack && transform.position.x <= EndPos.x)
+                    {
+                        gameObject.transform.position += new Vector3((moveDistance.x)
+                            / (60 * moveSecond), 0, 0);
+                    }
+                    else if (transform.position.x >= (EndPos.x - 5))
+                    {
+                        transform.position = startPos;
+                        m_DoAttack = false;
+                    }
                 }
-                else if (transform.position.x >= (EndPos.x - 5))
+                else if ((moveDistance.x < 0))
                 {
-                    transform.position = startPos;
-                    m_DoAttack = false;
-                }
-            }
-            else if ((moveDistance.x < 0))
-            {
-                if (m_DoAttack && transform.position.x >= EndPos.x)
-                {
-                    gameObject.transform.position += new Vector3((moveDistance.x)
-                        / (60 * moveSecond), 0, 0);
-                }
-                else if (transform.position.x <= (EndPos.x + 5))
-                {
-                    transform.position = startPos;
-                    m_DoAttack = false;
+                    if (m_DoAttack && transform.position.x >= EndPos.x)
+                    {
+                        gameObject.transform.position += new Vector3((moveDistance.x)
+                            / (60 * moveSecond), 0, 0);
+                    }
+                    else if (transform.position.x <= (EndPos.x + 5))
+                    {
+                        transform.position = startPos;
+                        m_DoAttack = false;
+                    }
                 }
             }
         }
+        
        
     }
 
