@@ -44,6 +44,11 @@ public class BossEnemyScript : MonoBehaviour
         doAttack_2 = true;
         doUp = false;
         doBrack = false;
+
+        if (SceneManager.GetActiveScene().name == "Boss_2Scene")
+        {
+            BrackUI.SetActive(true);
+        }
     }
 
     // Update is called once per frame

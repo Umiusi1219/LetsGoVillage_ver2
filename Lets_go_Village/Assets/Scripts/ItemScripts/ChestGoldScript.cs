@@ -61,7 +61,8 @@ public class ChestGoldScript : MonoBehaviour
             if (Iteme != null)
             {
                 StartCoroutine(ItemGenerationTime(Iteme));
-                if (SceneManager.GetActiveScene().name == "Boss_1Scene")
+                if (SceneManager.GetActiveScene().name == "Boss_1Scene"
+                    || SceneManager.GetActiveScene().name == "Boss_2Scene")
                 {
                     StartCoroutine(Close());
                 }
@@ -71,7 +72,8 @@ public class ChestGoldScript : MonoBehaviour
             {
                 randNum = Random.Range(0, ItemeList.Count);
                 StartCoroutine(ItemGenerationTime(ItemeList[randNum]));
-                if (SceneManager.GetActiveScene().name == "Boss_1Scene")
+                if (SceneManager.GetActiveScene().name == "Boss_1Scene"
+                    || SceneManager.GetActiveScene().name == "Boss_2Scene")
                 {
                     StartCoroutine(Close());
                 }

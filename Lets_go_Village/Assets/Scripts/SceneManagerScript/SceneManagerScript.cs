@@ -58,6 +58,7 @@ public class SceneManagerScript : MonoBehaviour
         CheckPointScript.m_nowCheckpoint = 0;
         stageNum = 0;
         PlayerBulletManagerScript.bulletNum = 0;
+        BossCheckPointScript.m_BossCheckpoint = 0;
     }
 
     //ÉQÅ[ÉÄâÊñ Ç≈égóp

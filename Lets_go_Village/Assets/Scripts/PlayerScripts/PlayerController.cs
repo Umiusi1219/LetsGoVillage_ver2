@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Vector3[] generatPoints = new Vector3[4];
 
+    [SerializeField] Vector3[] BossGeneratPoints = new Vector3[2];
+
     void Start()
     {
         m_pjumpPowerMax = m_pjumpPower;
@@ -55,6 +57,11 @@ public class PlayerController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
             playerParent.transform.position = generatPoints[CheckPointScript.m_nowCheckpoint];
+        }
+
+        if (SceneManager.GetActiveScene().name == "Boss_2Scene")
+        {
+            playerParent.transform.position = BossGeneratPoints[BossCheckPointScript.m_BossCheckpoint];
         }
     }
 

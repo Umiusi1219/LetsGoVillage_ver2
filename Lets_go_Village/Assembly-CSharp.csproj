@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\AlphaObjectScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\EnemyAdstract.cs" />
     <Compile Include="Assets\Scripts\PlayerBulletScripts\PlayerBulletAdstract.cs" />
+    <Compile Include="Assets\Scripts\BrokenGroundScript.cs" />
     <Compile Include="Assets\Scripts\PlayerBulletScripts\Bullet_BoomerangScript.cs" />
     <Compile Include="Assets\Scripts\BulletItemScript\BulletItemScript.cs" />
     <Compile Include="Assets\Scripts\PlayerBulletScripts\HAIYORU\HAIYORU_ForwardSensorScript.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Assets\Scripts\UiScripts\TimerScript.cs" />
     <Compile Include="Assets\Scripts\PlayerBulletScripts\Bullet_MountainScript.cs" />
     <Compile Include="Assets\Scripts\Slot\SlotManagerScript.cs" />
-    <Compile Include="Assets\Scripts\CheckPointScript.cs" />
+    <Compile Include="Assets\Scripts\CheckPoint\CheckPointScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\Golem\GolemSensor.cs" />
     <Compile Include="Assets\Scripts\UiScripts\PlayerBulletUiScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\Boss\BossAttackObjScript.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Assets\UnityAssets\Wizard - 2D Character\Demo\WizDemo1.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\Archer\ArrowScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript\FishScript.cs" />
-    <Compile Include="Assets\Scripts\BrokenGroundScript.cs" />
+    <Compile Include="Assets\Scripts\CheckPoint\BossCheckPointScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UnityAssets\Bringer Of Death\License.txt" />
