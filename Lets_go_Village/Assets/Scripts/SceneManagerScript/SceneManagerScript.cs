@@ -10,7 +10,7 @@ public class SceneManagerScript : MonoBehaviour
     [SerializeField] GameObject startButton;
     [SerializeField] GameObject storyText;
 
-
+    [SerializeField] public static float clearTime;
 
     static int stageNum;
     void Start()
@@ -26,6 +26,15 @@ public class SceneManagerScript : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Boss_2Scene")
         {
             stageNum = 3;
+        }
+    }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene().name == "GameScene" || SceneManager.GetActiveScene().name == "Boss_1Scene"
+            || SceneManager.GetActiveScene().name == "Boss_2Scene")
+        {
+            clearTime += Time.deltaTime;
         }
     }
 

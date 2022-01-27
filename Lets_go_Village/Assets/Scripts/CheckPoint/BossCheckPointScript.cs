@@ -27,8 +27,8 @@ public class BossCheckPointScript : MonoBehaviour
             m_BossCheckpoint = checkPointNum;
             if (isFirst)
             {
-                Instantiate(effect).transform.position = new Vector3(transform.position.x - 0.3f,
-                    transform.position.y + 2.2f, 0);
+                Instantiate(effect).transform.position = new Vector3(transform.position.x+ 0.3f,
+                    transform.position.y + 2.4f, 0);
             }
             isFirst = false;
         }
