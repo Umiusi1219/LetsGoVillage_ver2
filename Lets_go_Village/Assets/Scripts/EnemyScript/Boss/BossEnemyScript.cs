@@ -31,7 +31,7 @@ public class BossEnemyScript : MonoBehaviour
     [SerializeField] GameObject BrackUI;
     bool doBrack;
 
-
+    bool doFlashing = true;
 
 
     // Start is called before the first frame update
@@ -85,9 +85,18 @@ public class BossEnemyScript : MonoBehaviour
                 if ( transform.position.y >= startPos.y)
                 {
                     transform.position -= new Vector3(0, 0.5f, 0);
+
+                    if(doFlashing)
+                    {
+                        StartCoroutine(Flashing());
+                    }
                 }
                 else if(transform.position.x <= 200)
                 {
+                    if (doFlashing)
+                    {
+                        StartCoroutine(Flashing());
+                    }
                     transform.position += new Vector3(0.5f,0, 0);
                 }
                 else
@@ -195,6 +204,16 @@ public class BossEnemyScript : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         yield return new WaitForSeconds(0.1f);
+    }
+
+    IEnumerator Flashing()
+    {
+        doFlashing = false;
+        this.GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 0.2f, 1f);
+        yield return new WaitForSeconds(0.4f);
+        this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        yield return new WaitForSeconds(0.4f);
+        doFlashing = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

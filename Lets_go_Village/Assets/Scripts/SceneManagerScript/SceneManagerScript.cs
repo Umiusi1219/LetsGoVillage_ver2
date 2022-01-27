@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneManagerScript : MonoBehaviour
 {
+    [SerializeField] GameObject title;
+    [SerializeField] GameObject startButton;
+    [SerializeField] GameObject storyText;
+
+
 
     static int stageNum;
     void Start()
@@ -26,8 +32,48 @@ public class SceneManagerScript : MonoBehaviour
     //タイトル画面で使用
     public void OnClickStartButton()
     {
+        StartCoroutine(StartButton());
+        
+    }
+
+    IEnumerator StartButton()
+    {
+        startButton.SetActive(false);
+        title.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
+        storyText.SetActive(true);
+
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.2f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.4f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.6f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.8f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 1f);
+
+        yield return new WaitForSeconds(4f);
+
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.8f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.6f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.4f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 0.2f);
+        yield return new WaitForSeconds(0.1f);
+        storyText.GetComponent<Text>().color = new Color(1, 1, 1, 1f);
+
+        storyText.SetActive(false);
+
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene("GameScene");
     }
+
+
 
     public void OnClickExitButtom()
     {
@@ -79,10 +125,8 @@ public class SceneManagerScript : MonoBehaviour
     }
 
     //Boss2で使用
-    public void ToBoss3()
+    public void ToClear()
     {
-        SceneManager.LoadScene("Boss_3Scene");
+        SceneManager.LoadScene("ClearScene");
     }
-
-
 }

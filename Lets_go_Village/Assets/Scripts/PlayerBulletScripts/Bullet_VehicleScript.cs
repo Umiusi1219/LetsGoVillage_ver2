@@ -61,7 +61,7 @@ public class Bullet_VehicleScript : PlayerBulletAdstract
 
         if (collision.tag == "Enemy" || collision.tag == "Chest" ||
         collision.tag == "Map" || collision.tag == "AlphaMap"
-        || collision.tag == "Slot")
+        || collision.tag == "Slot" || collision.tag == "DeathDed")
         {
             Destroy(gameObject);
         }

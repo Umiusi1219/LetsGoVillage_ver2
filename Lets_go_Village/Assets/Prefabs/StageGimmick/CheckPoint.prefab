@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPointNum: 0
   isFirst: 0
+  effect: {fileID: 281298151404454775, guid: eea47a21c0c50df49b87b8cd12f4c31b, type: 3}
 --- !u!1 &8219782158756368411
 GameObject:
   m_ObjectHideFlags: 0

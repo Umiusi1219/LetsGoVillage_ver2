@@ -10,6 +10,8 @@ public class BossCheckPointScript : MonoBehaviour
 
     [SerializeField] private bool isFirst;
 
+    [SerializeField] GameObject effect;
+
     private void Start()
     {
         isFirst = true;
@@ -23,7 +25,11 @@ public class BossCheckPointScript : MonoBehaviour
         if (isFirst && collision.tag == "Player")
         {
             m_BossCheckpoint = checkPointNum;
-
+            if (isFirst)
+            {
+                Instantiate(effect).transform.position = new Vector3(transform.position.x - 0.3f,
+                    transform.position.y + 2.2f, 0);
+            }
             isFirst = false;
         }
     }

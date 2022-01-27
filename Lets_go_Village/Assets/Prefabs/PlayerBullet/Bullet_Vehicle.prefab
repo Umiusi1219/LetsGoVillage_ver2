@@ -119,10 +119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 1
-  DownSpeed: 0.0025
+  DownSpeed: 0.005
   bulletSpeed: 0.04
-  bulletAliveTime: 5
-  m_BulletCoolTime: 1
+  bulletAliveTime: 6
+  m_BulletCoolTime: 0.8
   bulletPower: 1
 --- !u!61 &7723348617131361876
 BoxCollider2D:
@@ -137,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: -0.01}
+  m_Offset: {x: 0.030000001, y: -0.03622753}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -148,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.41, y: 0.08}
+  m_Size: {x: 0.41, y: 0.132455}
   m_EdgeRadius: 0
 --- !u!50 &-8170985012556346813
 Rigidbody2D:
@@ -184,6 +184,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1, y: -0.02}
-  m_Size: {x: 0.42, y: 0.14}
+  m_Offset: {x: 0.09927153, y: -0.044041757}
+  m_Size: {x: 0.4214575, y: 0.18808421}
   m_Direction: 1
