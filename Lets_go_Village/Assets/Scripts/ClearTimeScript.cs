@@ -19,8 +19,17 @@ public class ClearTimeScript : MonoBehaviour
         minute = SceneManagerScript.clearTime / 60;
         second = SceneManagerScript.clearTime % 60;
 
-        clearTime.text = "Clear Time    " + minute.ToString("F0") 
-            + ":" + second.ToString("F0");
+        if (second < 10) 
+        {
+            clearTime.text = "Clear Time    " + minute.ToString("F0")
+                 + ":0" + second.ToString("F0");
+        }
+        else if(second >= 10)
+        {
+            clearTime.text = "Clear Time    " + minute.ToString("F0")
+                + ":" + second.ToString("F0");
+        }
+
     }
 
 
