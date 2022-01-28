@@ -811,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 1633070703}
   startButton: {fileID: 641069851}
+  exitButton: {fileID: 1738506043}
   storyText: {fileID: 692972023}
 --- !u!1 &1534190590
 GameObject:

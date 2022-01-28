@@ -8,6 +8,7 @@ public class SceneManagerScript : MonoBehaviour
 {
     [SerializeField] GameObject title;
     [SerializeField] GameObject startButton;
+    [SerializeField] GameObject exitButton;
     [SerializeField] GameObject storyText;
 
     [SerializeField] public static float clearTime;
@@ -49,6 +50,7 @@ public class SceneManagerScript : MonoBehaviour
     {
         startButton.SetActive(false);
         title.SetActive(false);
+        exitButton.SetActive(false);
         yield return new WaitForSeconds(0.3f);
         storyText.SetActive(true);
 
