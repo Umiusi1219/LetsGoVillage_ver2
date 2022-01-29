@@ -8,6 +8,7 @@ public class BrokenGroundScript : MonoBehaviour
     {
         if (collision.tag == "BossEnemy")
         {
+            transform.parent.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
     }

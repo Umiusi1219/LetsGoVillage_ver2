@@ -51,14 +51,8 @@ public class LastSlotScript : MonoBehaviour
             }
             else if (m_HitBullet)
             {
-                if(!m_Stop)
-                {
-                    slotManager.GetComponent<LastSlotManagerScript>().m_SlotCount++;
-                }
-
                 slotManager.GetComponent<LastSlotManagerScript>().m_slotNum = slotNum;
                 slotManager.GetComponent<LastSlotManagerScript>().m_stopFirstSlot = true;
-                m_Stop = true;
             }
         }
         else
@@ -83,8 +77,10 @@ public class LastSlotScript : MonoBehaviour
                 if (!m_Stop)
                 {
                     slotManager.GetComponent<LastSlotManagerScript>().m_SlotCount++;
+                    transform.parent.GetComponent<AudioSource>().Play();
                 }
                 m_Stop = true;
+
             }
         }
 

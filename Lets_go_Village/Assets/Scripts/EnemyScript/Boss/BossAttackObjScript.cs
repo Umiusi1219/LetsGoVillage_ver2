@@ -35,24 +35,29 @@ public class BossAttackObjScript : EnemyAdstract
                     {
                         gameObject.transform.position += new Vector3((moveDistance.x)
                             / (60 * moveSecond), 0, 0);
+
                     }
                     else if (transform.position.x >= (EndPos.x - 5))
                     {
                         transform.position = startPos;
                         m_DoAttack = false;
+                        GetComponent<AudioSource>().Stop();
                     }
                 }
                 else if ((moveDistance.x < 0))
                 {
                     if (m_DoAttack && transform.position.x >= EndPos.x)
                     {
+
                         gameObject.transform.position += new Vector3((moveDistance.x)
                             / (60 * moveSecond), 0, 0);
+
                     }
                     else if (transform.position.x <= (EndPos.x + 5))
                     {
                         transform.position = startPos;
                         m_DoAttack = false;
+                        GetComponent<AudioSource>().Stop();
                     }
                 }
             }

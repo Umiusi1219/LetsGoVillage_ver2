@@ -25,6 +25,7 @@ public class CheckPointScript : MonoBehaviour
     {
         if(isFirst && collision.tag == "Player")
         {
+            GetComponent<AudioSource>().Play();
             m_nowCheckpoint = checkPointNum;
             if (isFirst)
             {

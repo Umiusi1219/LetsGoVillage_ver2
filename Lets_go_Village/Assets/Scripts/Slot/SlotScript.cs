@@ -48,7 +48,6 @@ public class SlotScript : MonoBehaviour
             {
                 slotManager.GetComponent<SlotManagerScript>().m_slotNum = slotNum;
                 slotManager.GetComponent<SlotManagerScript>().m_stopFirstSlot = true;
-                m_Stop = true;
             }
         }
         else
@@ -70,6 +69,10 @@ public class SlotScript : MonoBehaviour
             }
             else if(m_HitBullet)
             {
+                if (!m_Stop)
+                {
+                    GetComponent<AudioSource>().Play();
+                }
                 m_Stop = true;
             }
         }

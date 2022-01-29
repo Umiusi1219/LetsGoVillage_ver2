@@ -53,6 +53,7 @@ public class BossLastScript : MonoBehaviour
     IEnumerator Ded()
     {
         ded = true;
+        GetComponent<AudioSource>().Play();
 
         this.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f, 1f);
         yield return new WaitForSeconds(0.3f);

@@ -55,6 +55,7 @@ public class ChestGoldScript : MonoBehaviour
         
         if (collision.tag == "PlayerBullet" || collision.tag == "VehicleBullet")
         {
+            GetComponent<AudioSource>().Play();
             chestAnim.SetTrigger("Open");
             chestDollider2D.enabled = false;
 

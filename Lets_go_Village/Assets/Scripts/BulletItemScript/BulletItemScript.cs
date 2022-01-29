@@ -33,7 +33,6 @@ public class BulletItemScript : MonoBehaviour
             //自身を消去
             Destroy(gameObject); 
         }
-
         //エネミーに接触したら、自身を削除
         if (collision.tag == "Enemy")
         {

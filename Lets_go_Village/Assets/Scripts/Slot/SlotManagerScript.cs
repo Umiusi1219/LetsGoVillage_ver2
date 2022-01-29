@@ -49,7 +49,12 @@ public class SlotManagerScript : MonoBehaviour
     {
         doAttack = false;
         yield return new WaitForSeconds(1f);
-        bossEnemy.GetComponent<BossEnemyScript>().Hurt(slotPower[m_slotNum - 1]);
+
+        if (bossEnemy != null)
+        {
+            bossEnemy.GetComponent<BossEnemyScript>().Hurt(slotPower[m_slotNum - 1]);
+        }
+        
         SlotReset();
         doAttack = true;
     }

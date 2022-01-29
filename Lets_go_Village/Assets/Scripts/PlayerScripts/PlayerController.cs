@@ -8,6 +8,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject playerParent;
 
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
+    [SerializeField] AudioSource jumpSE_Sou;
+    [SerializeField] AudioClip jumpSE_Cli;
+
+
     // playerステータス
     public int m_playerHP = 3;
     public int m_playerHPMAX = 3;
@@ -129,6 +139,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && !anim.GetBool("isJump") && !pressSpace)
             {
+                jumpSE_Sou.PlayOneShot(jumpSE_Cli);
                 rb.AddForce(new Vector3(0, m_pjumpPower, 0), ForceMode2D.Impulse);
                 isJumping = true;
                 anim.SetBool("isJump", true);
@@ -228,6 +239,7 @@ public class PlayerController : MonoBehaviour
     {
         if (0 < m_playerHP)
         {
+            damageSE_Sou.PlayOneShot(damageSE_Cli);
             m_playerHP -= enemyPowerNum;
             anim.SetTrigger("hurt");
             rb.AddForce(new Vector2(pKnockBackPoewr * m_pDirection, 1f), ForceMode2D.Impulse);
@@ -324,6 +336,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "DeathDed" && alive)
         {
+            damageSE_Sou.PlayOneShot(damageSE_Cli);
             Die();
         }
     }
@@ -337,7 +350,7 @@ public class PlayerController : MonoBehaviour
 
         //使用しているBulletのクールタイム分停止
         yield return new WaitForSeconds(Time/2);
-
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
         //所持している弾の生成
         ShootPlayerBullet();
 
@@ -365,7 +378,6 @@ public class PlayerController : MonoBehaviour
     {
         blackoutUI.GetComponent<BlackoutScript>().Onbool_doShow();
 
-        //使用しているBulletのクールタイム分停止
         yield return new WaitForSeconds(toGameOverTime);
 
         gameSceneManager.GetComponent<SceneManagerScript>().PlayerDie();

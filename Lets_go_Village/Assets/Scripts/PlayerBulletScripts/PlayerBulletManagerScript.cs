@@ -15,12 +15,15 @@ public class PlayerBulletManagerScript : MonoBehaviour
 
     private void Start()
     {
-        //デフォルトのBulletを設定
-        SetPlayerBullet(bulletNum);
+        m_PlayerBullet = playerBulletList[bulletNum];
+
+        m_HaveBulletCoolTime = m_PlayerBullet.GetComponent<PlayerBulletAdstract>().GetCooltime();
     }
 
     public void SetPlayerBullet(int num)
     {
+        GetComponent<AudioSource>().Play();
+
         bulletNum = num;
 
         m_PlayerBullet = playerBulletList[num];

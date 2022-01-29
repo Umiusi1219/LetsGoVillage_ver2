@@ -9,24 +9,44 @@ public class SceneManagerScript : MonoBehaviour
     [SerializeField] GameObject title;
     [SerializeField] GameObject startButton;
     [SerializeField] GameObject exitButton;
+
+    [SerializeField] GameObject nextStageButton;
+
     [SerializeField] GameObject storyText;
 
     [SerializeField] public static float clearTime;
+
+    static bool nextStageTrriger = false;
 
     static int stageNum;
     void Start()
     {
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
+            
             stageNum = 1;
         }
         if (SceneManager.GetActiveScene().name == "Boss_1Scene")
         {
+            
             stageNum = 2;
         }
         if (SceneManager.GetActiveScene().name == "Boss_2Scene")
         {
+            
             stageNum = 3;
+        }
+        
+        if (SceneManager.GetActiveScene().name == "GameOverScene")
+        {
+            if(nextStageTrriger)
+            {
+                nextStageButton.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                nextStageButton.GetComponent<Button>().interactable = false;
+            }
         }
     }
 
@@ -42,6 +62,7 @@ public class SceneManagerScript : MonoBehaviour
     //タイトル画面で使用
     public void OnClickStartButton()
     {
+        GetComponent<AudioSource>().Play();
         StartCoroutine(StartButton());
         
     }
@@ -88,6 +109,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void OnClickExitButtom()
     {
+        GetComponent<AudioSource>().Play();
         Application.Quit();
         Debug.Log("Exit");
     }
@@ -95,9 +117,11 @@ public class SceneManagerScript : MonoBehaviour
     //ゲームオーバー画面で使用
     public void OnClickContinueButton()
     {
-        if(stageNum == 1)
+        GetComponent<AudioSource>().Play();
+        nextStageTrriger = true;
+        if (stageNum == 1)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("GameScene");   
         }
         else if(stageNum == 2)
         {
@@ -109,14 +133,36 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
+
+    public void OnClickNextStageButton()
+    {
+        nextStageTrriger = false;
+        if (stageNum == 1)
+        {
+            SceneManager.LoadScene("Boss_1Scene");
+        }
+        else if (stageNum == 2)
+        {
+            SceneManager.LoadScene("Boss_2Scene");
+        }
+        else if (stageNum == 3)
+        {
+            SceneManager.LoadScene("ClearScene");
+        }
+    }
+
+
     public void OnClickTitleButton()
     {
+        GetComponent<AudioSource>().Play();
         SceneManager.LoadScene("TitleScene");
         CheckPointScript.m_nowCheckpoint = 0;
         stageNum = 0;
         PlayerBulletManagerScript.bulletNum = 0;
         BossCheckPointScript.m_BossCheckpoint = 0;
         clearTime = 0;
+
+        nextStageTrriger = false;
     }
 
     //ゲーム画面で使用
@@ -128,12 +174,14 @@ public class SceneManagerScript : MonoBehaviour
     public void ToGate()
     {
         SceneManager.LoadScene("Boss_1Scene");
+        nextStageTrriger = false;
     }
 
     //Boss1で使用
     public void ToBoss2()
     {
         SceneManager.LoadScene("Boss_2Scene");
+        nextStageTrriger = false;
     }
 
     //Boss2で使用

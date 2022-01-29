@@ -41,7 +41,6 @@ public class BossEnemyScript : MonoBehaviour
 
         m_BossHpMAX = m_BossHp;
         doAttack_1 = true;
-        doAttack_2 = true;
         doUp = false;
         doBrack = false;
 
@@ -71,6 +70,8 @@ public class BossEnemyScript : MonoBehaviour
 
         if (m_BossHp <= 0)
         {
+            attackObjR.GetComponent<AudioSource>().Stop();
+            attackObjL.GetComponent<AudioSource>().Stop();
             if (SceneManager.GetActiveScene().name == "Boss_1Scene")
             {
                 StartCoroutine(NextStage());
@@ -131,10 +132,6 @@ public class BossEnemyScript : MonoBehaviour
                 }
             }
 
-            if (doAttack_2)
-            {
-                StartCoroutine(Attack_2());
-            }
         }
     }
 
@@ -145,18 +142,13 @@ public class BossEnemyScript : MonoBehaviour
         yield return new WaitForSeconds((attack_1_CoolTime - 2) / 3);
         doUp = true;
         doDown = false;
-        yield return new WaitForSeconds((attack_1_CoolTime-2) / 3);
+        yield return new WaitForSeconds((attack_1_CoolTime - 1) / 6);
+        attackObjR.GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds((attack_1_CoolTime - 1) / 6);
         attackObjR.GetComponent<BossAttackObjScript>().m_DoAttack = true;
         yield return new WaitForSeconds(3.5f);
         doDown = true;
         doAttack_1 = true;
-    }
-    IEnumerator NextStage()
-    {
-        yield return new WaitForSeconds(2);
-        doBrack = true;
-        yield return new WaitForSeconds(5);
-        sceneManager.GetComponent<SceneManagerScript>().ToBoss2();
     }
 
     IEnumerator Attack_1L()
@@ -166,20 +158,15 @@ public class BossEnemyScript : MonoBehaviour
         yield return new WaitForSeconds((attack_1_CoolTime - 2) / 3);
         doUp = true;
         doDown = false;
-        yield return new WaitForSeconds((attack_1_CoolTime - 2) / 3);
+        yield return new WaitForSeconds((attack_1_CoolTime - 1) / 6);
+        attackObjL.GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds((attack_1_CoolTime - 1) / 6);
         attackObjL.GetComponent<BossAttackObjScript>().m_DoAttack = true;
         yield return new WaitForSeconds(3.5f);
         doDown = true;
         doAttack_1 = true;
     }
 
-    IEnumerator Attack_2()
-    {
-        doAttack_2 = false;
-        yield return new WaitForSeconds(attack_2_CoolTime);
-
-        doAttack_2 = true;
-    }
 
 
     public void Hurt(float slotPower)
@@ -190,6 +177,8 @@ public class BossEnemyScript : MonoBehaviour
 
     IEnumerator Hurt()
     {
+        GetComponent<AudioSource>().Play();
+
         StartCoroutine(attackObjR.GetComponent<BossAttackObjScript>().Hurt());
         StartCoroutine(attackObjL.GetComponent<BossAttackObjScript>().Hurt());
 
@@ -214,6 +203,14 @@ public class BossEnemyScript : MonoBehaviour
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         yield return new WaitForSeconds(0.4f);
         doFlashing = true;
+    }
+
+    IEnumerator NextStage()
+    {
+        yield return new WaitForSeconds(2);
+        doBrack = true;
+        yield return new WaitForSeconds(5);
+        sceneManager.GetComponent<SceneManagerScript>().ToBoss2();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
