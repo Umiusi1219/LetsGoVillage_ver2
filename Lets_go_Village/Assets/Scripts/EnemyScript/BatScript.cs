@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class BatScript : EnemyAdstract
 {
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
 
     [SerializeField] float batHp;
 
@@ -53,10 +62,16 @@ public class BatScript : EnemyAdstract
                 gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
             }
 
-            if (0 >= batHp || 50 <= toPlayerDistance.x)
+            if (0 >= batHp)
             {
                 dead();
             }
+
+            if (50 <= Mathf.Abs(toPlayerDistance.x))
+            {
+                Destroy(gameObject);
+            }
+
 
             if (doAttackRange > Mathf.Abs(toPlayerDistance.x) && doShoot)
             {
@@ -67,6 +82,7 @@ public class BatScript : EnemyAdstract
 
     void Hurt(float bulletPower)
     {
+        damageSE_Sou.PlayOneShot(damageSE_Cli);
         gameObject.GetComponent<Animator>().SetTrigger("hurt");
         batHp -= bulletPower;
     }
@@ -74,6 +90,7 @@ public class BatScript : EnemyAdstract
 
     public void Attack()
     {
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
         gameObject.GetComponent<Animator>().SetTrigger("attack");
         StartCoroutine(AttackTime());
     }
@@ -81,6 +98,7 @@ public class BatScript : EnemyAdstract
 
     void dead()
     {
+        dedSE_Sou.PlayOneShot(ded_Cli);
         batDed = true;
         gameObject.GetComponent<Animator>().SetTrigger("ded");
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;

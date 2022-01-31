@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class UndeadScript : EnemyAdstract
 {
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
     [SerializeField]
     private GameObject player;
 
@@ -37,10 +44,10 @@ public class UndeadScript : EnemyAdstract
         {
             toPlayerDistance = player.transform.position.x - gameObject.transform.position.x;
             Run();
-            if (50 <= toPlayerDistance)
+            if (50 <= Mathf.Abs(toPlayerDistance))
             {
-                dead();
-            };
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -90,13 +97,16 @@ public class UndeadScript : EnemyAdstract
 
     IEnumerator DethTime()
     {
-        yield return new WaitForSeconds(1);
+        dedSE_Sou.PlayOneShot(ded_Cli);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject.transform.parent.gameObject);
     }
 
 
     public override int GetEnemyPower()
     {
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
+
         return undeadPower;
     }
 }

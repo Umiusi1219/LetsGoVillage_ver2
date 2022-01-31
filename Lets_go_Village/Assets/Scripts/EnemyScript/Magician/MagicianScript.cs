@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class MagicianScript : EnemyAdstract
 {
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
+    [SerializeField] AudioSource warpSE_Sou;
+    [SerializeField] AudioClip warpSE_Cli;
+
 
     [SerializeField] float magicianHp;
 
@@ -60,12 +72,18 @@ public class MagicianScript : EnemyAdstract
                 gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
             }
 
-            if (0 >= magicianHp || 50 <= toPlayerDistance.x)
+            if (0 >= magicianHp)
             {
                 dead();
             }
 
-            if(doTeleport)
+            if (50 <= Mathf.Abs(toPlayerDistance.x))
+            {
+                Destroy(gameObject);
+            }
+
+
+            if (doTeleport)
             {
                 StartCoroutine(TeleportTime());
             }
@@ -76,6 +94,7 @@ public class MagicianScript : EnemyAdstract
 
     void Hurt(float bulletPower)
     {
+        damageSE_Sou.PlayOneShot(damageSE_Cli);
         gameObject.GetComponent<Animator>().SetTrigger("hurt");
         magicianHp -= bulletPower;
     }
@@ -90,6 +109,7 @@ public class MagicianScript : EnemyAdstract
 
     void dead()
     {
+        dedSE_Sou.PlayOneShot(ded_Cli);
         magicianDed = true;
         gameObject.GetComponent<Animator>().SetTrigger("ded");
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -98,6 +118,8 @@ public class MagicianScript : EnemyAdstract
 
     void TeleportMain()
     {
+        warpSE_Sou.PlayOneShot(warpSE_Cli);
+
         randNum = Random.Range(1, 2 + 1);
 
         switch(randNum)
@@ -170,12 +192,12 @@ public class MagicianScript : EnemyAdstract
 
     IEnumerator AttackTime()
     {
-
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
         yield return new WaitForSeconds(0.1f);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         yield return new WaitForSeconds(1.1f);
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
+        attackSE_Sou.Stop();
     }
 
     IEnumerator TeleportTime()

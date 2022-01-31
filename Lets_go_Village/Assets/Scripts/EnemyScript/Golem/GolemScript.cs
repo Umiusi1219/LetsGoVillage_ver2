@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class GolemScript : EnemyAdstract
 {
+
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
+
     [SerializeField]
     private GameObject player;
 
@@ -26,7 +37,6 @@ public class GolemScript : EnemyAdstract
 
     public float attackCoolTime;
 
-    private int golemDirection = 1;
 
     [SerializeField]
     bool golemDed = false;
@@ -59,9 +69,14 @@ public class GolemScript : EnemyAdstract
             toPlayerDistance = player.transform.position.x - Golem.transform.position.x;
             Run();
 
-            if (0 >= golemHp || 50 <= toPlayerDistance)
+            if (0 >= golemHp)
             {
                 dead();
+            }
+
+            if (50 <= Mathf.Abs(toPlayerDistance))
+            {
+                Destroy(gameObject);
             }
 
             if (doAttackRange > Mathf.Abs(toPlayerDistance) && doAttack)
@@ -78,7 +93,6 @@ public class GolemScript : EnemyAdstract
 
         if (toPlayerDistance < -0.5f)
         {
-            golemDirection = 1;
             moveVelocity = Vector3.left;
 
             Golem.transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -86,7 +100,6 @@ public class GolemScript : EnemyAdstract
         }
         if (0.5f < toPlayerDistance)
         {
-            golemDirection = -1;
             moveVelocity = Vector3.right;
 
             Golem.transform.rotation = new Quaternion(0, 180, 0,0);
@@ -97,6 +110,8 @@ public class GolemScript : EnemyAdstract
 
     void Hurt(float bulletPower)
     {
+        damageSE_Sou.PlayOneShot(damageSE_Cli);
+
         gameObject.GetComponent<Animator>().SetTrigger("hurt");
         golemHp -= bulletPower;
     }
@@ -104,6 +119,7 @@ public class GolemScript : EnemyAdstract
 
     public void Attack()
     {
+
         gameObject.GetComponent<Animator>().SetTrigger("attack");
         StartCoroutine(AttackTime());
     }
@@ -111,6 +127,8 @@ public class GolemScript : EnemyAdstract
 
     void dead()
     {
+        dedSE_Sou.PlayOneShot(ded_Cli);
+
         golemDed = true;
         gameObject.GetComponent<Animator>().SetTrigger("death");
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -136,7 +154,10 @@ public class GolemScript : EnemyAdstract
     IEnumerator AttackTime()
     {
         doAttack = false;
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(0.2f);
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
+        yield return new WaitForSeconds(0.3f);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         yield return new WaitForSeconds(0.2f);
         gameObject.GetComponent<BoxCollider2D>().enabled = false;

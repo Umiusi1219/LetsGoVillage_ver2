@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class FishScript : EnemyAdstract
 {
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
 
     [SerializeField] float fishHp;
 
@@ -53,10 +62,15 @@ public class FishScript : EnemyAdstract
                 gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
             }
 
-            if (0 >= fishHp || 50 <= toPlayerDistance.x)
+            if (0 >= fishHp )
             {
                 dead();
             }
+            if (50 <= Mathf.Abs(toPlayerDistance.x))
+            {
+                Destroy(gameObject);
+            }
+
 
             if (doAttackRange > Mathf.Abs(toPlayerDistance.x) && doattack)
             {
@@ -67,6 +81,7 @@ public class FishScript : EnemyAdstract
 
     void Hurt(float bulletPower)
     {
+        damageSE_Sou.PlayOneShot(damageSE_Cli);
         fishHp -= bulletPower;
         StartCoroutine(Hurt());
     }
@@ -74,6 +89,7 @@ public class FishScript : EnemyAdstract
 
     void dead()
     {
+        dedSE_Sou.PlayOneShot(ded_Cli);
         fishDed = true;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         StartCoroutine(DethTime());
@@ -126,6 +142,7 @@ public class FishScript : EnemyAdstract
 
     IEnumerator AttackTime()
     {
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
         doattack = false;
         gameObject.GetComponent<Animator>().SetFloat("animSpeed", 1.8f);
         yield return new WaitForSeconds(0.1f);

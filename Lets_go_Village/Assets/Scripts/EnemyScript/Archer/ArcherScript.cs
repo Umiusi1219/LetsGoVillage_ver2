@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class ArcherScript : EnemyAdstract
 {
+    [SerializeField] AudioSource damageSE_Sou;
+    [SerializeField] AudioClip damageSE_Cli;
+
+    [SerializeField] AudioSource dedSE_Sou;
+    [SerializeField] AudioClip ded_Cli;
+
+    [SerializeField] AudioSource attackSE_Sou;
+    [SerializeField] AudioClip attackSE_Cli;
+
+
     [SerializeField] float archerHp;
 
     [SerializeField] float shootCoolTime;
@@ -48,9 +58,14 @@ public class ArcherScript : EnemyAdstract
                 gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
             }
 
-            if (0 >= archerHp || 50 <= toPlayerDistance)
+            if (0 >= archerHp)
             {
                 dead();
+            }
+
+            if (50 <= Mathf.Abs(toPlayerDistance))
+            {
+                Destroy(gameObject);
             }
 
             if (doAttackRange > Mathf.Abs(toPlayerDistance) && doShoot)
@@ -62,6 +77,7 @@ public class ArcherScript : EnemyAdstract
 
     void Hurt(float bulletPower)
     {
+        damageSE_Sou.PlayOneShot(damageSE_Cli);
         gameObject.GetComponent<Animator>().SetTrigger("hurt");
         archerHp -= bulletPower;
     }
@@ -76,6 +92,7 @@ public class ArcherScript : EnemyAdstract
 
     void dead()
     {
+        dedSE_Sou.PlayOneShot(ded_Cli);
         archerDed = true;
         gameObject.GetComponent<Animator>().SetTrigger("ded");
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -101,6 +118,8 @@ public class ArcherScript : EnemyAdstract
     {
         doShoot = false;
         yield return new WaitForSeconds(0.4f);
+
+        attackSE_Sou.PlayOneShot(attackSE_Cli);
         Instantiate(shootObj).transform.position = gameObject.transform.position;
         
         yield return new WaitForSeconds(shootCoolTime);
